@@ -2,6 +2,7 @@ from fastapi import FastAPI, Query, HTTPException
 from pydantic import BaseModel
 import ferrobus
 import datetime
+from zoneinfo import ZoneInfo
 import math
 import json
 from pathlib import Path
@@ -19,11 +20,17 @@ print(f"✓ OSM_FILE: {OSM_FILE}")
 print(f"✓ OSM file exists: {OSM_FILE.exists()}")
 
 # --- Khởi tạo transit model (chỉ làm 1 lần khi app chạy) ---
+# IMPORTANT:
+# We must choose the "service date" that matches the GTFS calendar.
+# On servers running in UTC (common on EC2/Docker), using datetime.date.today()
+# can lead to mismatches vs Vietnam local date/time and result in 0 transit results.
+VN_TZ = ZoneInfo("Asia/Ho_Chi_Minh")
+SERVICE_DATE = datetime.datetime.now(VN_TZ).date()
 try:
     model = ferrobus.create_transit_model(
         osm_path=str(OSM_FILE),           # Dùng absolute path
         gtfs_dirs=[str(GTFS_DIR)],        # Dùng absolute path
-        date=datetime.date.today()
+        date=SERVICE_DATE
     )
     print("✓ Transit model created successfully")
 except Exception as e:
