@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #395495;
+    --color-secondary: #5c74ac;
+    --color-accent: #9fb0da;
+    --color-navy: #243056;
+    --color-neutral-blue: #bcc4cc;
+    --color-orange: #ef4444;
+    --color-orange-hover: #dc2626;
+
+    /* Semantic aliases */
+    --color-background: #FFFFFF;
+    --color-foreground: #243056;
+}
+
+/* Global styles */
+:root {
+    color-scheme: light;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Custom Scrollbar Styles */
+.scrollbar-thin {
+    scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* 3D Bus Marker Styles */
+.bus-3d-marker {
+    background: transparent;
+    transition: transform 0.1s linear;
+    /* Smooth rotation */
+}
+
+.bus-3d-container {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    /* transition: transform 0.3s linear; Handled by JS for bearing */
+}
+
+.bus-body {
+    width: 20px;
+    height: 40px;
+    background: linear-gradient(to bottom, #ef4444, #dc2626);
+    /* Red bus */
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.6), inset 0 0 5px rgba(255, 255, 255, 0.3);
+    z-index: 2;
+}
+
+.bus-roof {
+    width: 16px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: 5px;
+    left: 2px;
+    border-radius: 2px;
+}
+
+.bus-front {
+    width: 20px;
+    height: 4px;
+    background: #ffedd5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 -2px 10px rgba(249, 115, 22, 0.8);
+    /* Headlights glow */
+}
+
+.bus-light-glow {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.4) 0%, transparent 70%);
+    z-index: 1;
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
+/* Light Trail Animation */
+.bus-light-trail {
+    filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.8));
+    animation: dash-trail 1s linear infinite;
+    stroke-dasharray: 20;
+}
+
+@keyframes dash-trail {
+    to {
+        stroke-dashoffset: -40;
+    }
+}
+
+/* Leaflet Map Controls - ensure they don't overlap with header */
+.leaflet-control-zoom,
+.leaflet-control-attribution,
+.leaflet-control-layers,
+.leaflet-bar {
+    z-index: 500 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+    z-index: 500 !important;
+}
+
+.leaflet-pane {
+    z-index: 400 !important;
+}
+
+.leaflet-tile-pane {
+    z-index: 200 !important;
+}
+
+.leaflet-overlay-pane {
+    z-index: 400 !important;
+}
+
+.leaflet-shadow-pane {
+    z-index: 500 !important;
+}
+
+.leaflet-marker-pane {
+    z-index: 600 !important;
+}
+
+.leaflet-tooltip-pane {
+    z-index: 650 !important;
+}
+
+.leaflet-popup-pane {
+    z-index: 700 !important;
+}
