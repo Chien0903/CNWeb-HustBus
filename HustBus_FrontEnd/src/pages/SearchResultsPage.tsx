@@ -80,6 +80,7 @@ export default function SearchResultsPage() {
         return [target, ...others];
     }, [routes, activeFilter]);
 
+
     const handleSaveFavorite = async (routeId: string) => {
         if (!isAuthenticated) {
             setToast('Bạn cần đăng nhập để lưu lộ trình.');
