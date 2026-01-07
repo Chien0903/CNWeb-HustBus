@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-const RAW_API_BASE = import.meta.env.VITE_API_URL as string | undefined;
-// Normalize to avoid mistakes like: https://domain.com/  -> https://domain.com
-// Prevents double slashes in requests (e.g. https://ip//api/...)
-const API_BASE = (RAW_API_BASE || '').replace(/\/+$/, '');
+
+const API_BASE = import.meta.env.VITE_API_URL;
 
 const apiClient = axios.create({
     baseURL: `${API_BASE}/api`,
